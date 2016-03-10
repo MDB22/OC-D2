@@ -3,6 +3,7 @@
 \usepackage[margin=1.5in]{geometry}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{pdfpages}
 
 \newcommand{\IMAGEPATH}{../Images/}
 
@@ -81,6 +82,7 @@ From the ``Go'' email:
 	\item Risk Management
 	\item \textit{After other sections -} Conclusions
 	\item \textit{After Conclusions -} Executive Summary
+	\item \textit{After completing report -} Compliance Statement
 \end{itemize}
 
 \newpage
@@ -90,8 +92,8 @@ From the ``Go'' email:
 
 \newpage
 
-\section{Compliance Statement (3 pages)}
-\input{compliance}
+% Append the Compliance Statement to the document
+\includepdf[pages=-]{compliance.pdf}
 
 \newpage
 \section{Executive Summary (1 page)}

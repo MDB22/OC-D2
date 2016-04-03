@@ -1,11 +1,18 @@
 \label{sec:risk-assessment}
 The following tables identify various risks and hazards associated with the use of our aircraft, following a standard University of Melbourne Risk Assessment template, shown in Figure \ref{fig:risk-matrix}.\\
 
-Each row contains the following information: the potential hazard, the likelihood of that hazard occurring during the mission, a ``rating'' of the consequence of that hazard, and an assessment of the overall risk for that hazard. Management and mitigation of these risks will be discussed in Section \ref{sec:risk-management}.
+Each row of the risk assessment tables contains the following information: the potential hazard, the likelihood of that hazard occurring during the mission, a ``rating'' of the consequence of that hazard, and an assessment of the overall risk for that hazard. Management and mitigation of these risks will be discussed in Section \ref{sec:risk-management}.
 
 \begin{figure}[H]
-	\centering
-	\centerline{\includegraphics[width=580pt]{../Images/risk-matrix}}
+	
+	\begin{subfigure}{\linewidth}
+		\centerline{\includegraphics[width=550pt]{../Images/risk-matrix}}
+	\end{subfigure}\\[2ex]
+	
+	\begin{subfigure}{\linewidth}
+		\centerline{\includegraphics[width=300pt]{../Images/risk-matrix-2}}
+	\end{subfigure}
+	
 	\caption{Risk Management Matrix}
 	\label{fig:risk-matrix}
 \end{figure}
@@ -13,7 +20,7 @@ Each row contains the following information: the potential hazard, the likelihoo
 \begin{table}[!h]
 	\label{tab:risks-electrical}
 	\centering
-	\begin{tabularx}{\textwidth}{|c|Y|Y|Y|}
+	\begin{tabularx}{\textwidth}{|Y|c|c|c|}
 		\hline
 		\textbf{Risk} & \textbf{Likelihood} & \textbf{Consequence} & \textbf{Risk Rating}\\
 		\hline
@@ -30,7 +37,7 @@ Each row contains the following information: the potential hazard, the likelihoo
 \begin{table}[!h]
 	\label{tab:risks-preflight}
 	\centering
-	\begin{tabularx}{\textwidth}{|c|Y|Y|Y|}
+	\begin{tabularx}{\textwidth}{|Y|c|c|c|}
 		\hline
 		\textbf{Risk} & \textbf{Likelihood} & \textbf{Consequence} & \textbf{Risk Rating}\\
 		\hline
@@ -43,7 +50,7 @@ Each row contains the following information: the potential hazard, the likelihoo
 \begin{table}[!h]
 	\label{tab:risks-autonomy}
 	\centering
-	\begin{tabularx}{\textwidth}{|c|Y|Y|Y|}
+	\begin{tabularx}{\textwidth}{|Y|c|c|c|}
 		\hline
 		\textbf{Risk} & \textbf{Likelihood} & \textbf{Consequence} & \textbf{Risk Rating}\\
 		\hline
@@ -56,11 +63,26 @@ Each row contains the following information: the potential hazard, the likelihoo
 \begin{table}[!h]
 	\label{tab:risks-inflight}
 	\centering
-	\begin{tabularx}{\textwidth}{|c|Y|Y|Y|}
+	\begin{tabularx}{\textwidth}{|Y|c|c|c|}
 		\hline
 		\textbf{Risk} & \textbf{Likelihood} & \textbf{Consequence} & \textbf{Risk Rating}\\
 		\hline
-		& & & \\
+		Loss of aircraft control & Possible & Insignificant & Medium \\
+		(Autopilot failure or lock-up) & & & \\
+		\hline
+		Loss of aircraft control  & Likely & Insignificant & Medium \\
+		(Propeller or power loss) & & & \\
+		\hline
+		Loss of GPS link only to GCS & Likely & Insignificant & Medium \\
+		\hline
+		Loss of telemetry/radio link only to GPS & Likely & Insignificant & Medium \\
+		\hline
+		Loss of both telemetry and GPS to GCS & Possible & Insignificant & Medium \\
+		\hline
+		GCS failure & Possible & Insignificant & Medium \\
+		(aircraft loses communication with GCS) & & & \\
+		\hline
+		Geofence breach & Likely & Insignificant & Medium \\
 		\hline
 	\end{tabularx} 
 	\caption{Risk Assessment - In-flight Hazards}
@@ -69,11 +91,13 @@ Each row contains the following information: the potential hazard, the likelihoo
 \begin{table}[!h]
 	\label{tab:risks-other}
 	\centering
-	\begin{tabularx}{\textwidth}{|c|Y|Y|Y|}
+	\begin{tabularx}{\textwidth}{|Y|c|c|c|}
 		\hline
 		\textbf{Risk} & \textbf{Likelihood} & \textbf{Consequence} & \textbf{Risk Rating}\\
 		\hline
-		& & & \\
+		Aircraft not operational or not controllable & Possible & Insignificant & Medium \\
+		\hline
+		Risk of injury to persons near aircraft & Possible & Insignificant & Medium \\
 		\hline
 	\end{tabularx} 
 	\caption{Risk Assessment - Other Hazards}

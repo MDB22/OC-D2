@@ -17,6 +17,11 @@ Each row of the risk assessment tables contains the following information: the p
 	\label{fig:risk-matrix}
 \end{figure}
 
+It would be assumed a UAV would take off shortly after having been turned on and armed. No matter how well pre-arm tests go there is always a chance for failure in flight. As such the UAV could fly erratically immediately after take off and potentially harm nearby people while flying at low altitudes.
+This is easy to combat at the home site with line of sight and a kill switch, however during automated landings near Jo we must rely GCS feedback and a kill switch. The one minute buffer between arming and takeoff at Jo’s end will ensure Jo is well clear of the drone further minimising risk.
+On landing special care needs to be taken to ensure landing sites are clear of people. Computer vision will to a degree be able to assess suitability of landing sites, but it searches for people based on simple parameters such as clothing colour. We should therefore make the assumption that humanoid figures outside of the mission specs (i.e. anyone that is not Jo) are invisible to the UAV. So due diligence must taken to ensure the UAV is designated to land in the allocated sites and that those sites are well clear during takeoff and landing procedures.
+Premature Arming of props while personnel are in close proximity of the UAV is a possible cause of risk as a person must Arm the safety switch on the drone before it can be armed. If the safety switch is pressed by a team member and the UAV is armed in Auto Mission Mode by the Ground Control Station, the arming team member is at risk of injury from spinning props. To ensure safety strong communication between Switch Arming Team Member (SATM) and Ground Control Station Member (GCSM) will be required.
+
 \begin{table}[!h]
 	\label{tab:risks-electrical}
 	\centering

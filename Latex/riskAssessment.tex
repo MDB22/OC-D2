@@ -26,25 +26,12 @@ Each row of the risk assessment tables contains the following information: the p
 		\hline
 		Electrocution & Possible & Insignificant & Medium\\
 		\hline
-		Impact to batteries & Possible & Insignificant & Medium\\
+		Impact to batteries, causing explosion & Possible & Insignificant & Medium\\
 		\hline
-		Loss of motor power & Possible & Insignificant & Medium\\
+		Loss of motor power & Possible & Insignificant & Medium\\		
 		\hline
 	\end{tabularx} 
 	\caption{Risk Assessment - Electrical Hazards}
-\end{table}
-
-\begin{table}[!h]
-	\label{tab:risks-preflight}
-	\centering
-	\begin{tabularx}{\textwidth}{|Y|c|c|c|}
-		\hline
-		\textbf{Risk} & \textbf{Likelihood} & \textbf{Consequence} & \textbf{Risk Rating}\\
-		\hline
-		 & & & \\
-		\hline
-	\end{tabularx} 
-	\caption{Risk Assessment - Pre-flight Hazards}
 \end{table}
 
 \begin{table}[!h]
@@ -67,10 +54,10 @@ Each row of the risk assessment tables contains the following information: the p
 		\hline
 		\textbf{Risk} & \textbf{Likelihood} & \textbf{Consequence} & \textbf{Risk Rating}\\
 		\hline
-		Loss of aircraft control & Possible & Insignificant & Medium \\
+		Loss of aircraft control & \MULTROW{Possible} & \MULTROW{Insignificant} & \MULTROW{Medium} \\
 		(Autopilot failure or lock-up) & & & \\
 		\hline
-		Loss of aircraft control  & Likely & Insignificant & Medium \\
+		Loss of aircraft control  & \MULTROW{Likely} & \MULTROW{Insignificant} & \MULTROW{Medium} \\
 		(Propeller or power loss) & & & \\
 		\hline
 		Loss of GPS link only to GCS & Likely & Insignificant & Medium \\
@@ -79,7 +66,7 @@ Each row of the risk assessment tables contains the following information: the p
 		\hline
 		Loss of both telemetry and GPS to GCS & Possible & Insignificant & Medium \\
 		\hline
-		GCS failure & Possible & Insignificant & Medium \\
+		GCS failure & \MULTROW{Possible} & \MULTROW{Insignificant} & \MULTROW{Medium}\\
 		(aircraft loses communication with GCS) & & & \\
 		\hline
 		Geofence breach & Likely & Insignificant & Medium \\
@@ -100,5 +87,5 @@ Each row of the risk assessment tables contains the following information: the p
 		Risk of injury to persons near aircraft & Possible & Insignificant & Medium \\
 		\hline
 	\end{tabularx} 
-	\caption{Risk Assessment - Other Hazards}
+	\caption{Risk Assessment - General Hazards}
 \end{table}

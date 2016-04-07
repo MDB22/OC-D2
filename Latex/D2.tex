@@ -7,8 +7,15 @@
 \usepackage{tabularx}
 \usepackage{float}
 \usepackage{subcaption}
+% For nice tables
+\usepackage{multirow}
+% For nicer commands
+\usepackage{xparse}
 
 \newcommand{\IMAGEPATH}{../Images/}
+
+% New command for formatting tables in risk assessment
+\DeclareDocumentCommand{\MULTROW}{m O{*} O{2}}{\multirow{#3}{#2}{#1}}
 
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 
@@ -98,7 +105,7 @@ From the ``Go'' email:
 \newpage
 
 % Append the Compliance Statement to the document
-\section{Compliance Statement}
+\section{Compliance Statement (3 pages)}
 \begin{figure}
 	\includepdf[pages=1,scale=0.92]{compliance.pdf}
 \end{figure}

@@ -16,5 +16,27 @@ Analysis of termination system capabilities.
 \subsection{Geofence System}
 Discuss processing of data, set up of Geofence around mission, implementation of soft Geofence.
 
+Geofences are represented differently depending on plane or copter:
+- Copter geofences are cylindrical
+- Plane geofences are (up to) 18 point polygons
+
+Approach 1 - Switching aircraft configuration mid-flight:
+- Assign cylindrical geofence at base on startup
+- Upon transition, assign full, polygonal geofence for transit corridor
+- Upon reaching landing site and transitioning to copter, assign cylindrical geofence for landing site
+- Transition, redefine transit corridor geofence and return to base
+- Redefine cylindrical geofence and land at base
+
+Approach 2 - Using only plane mode:
+- Assign square polygon for base geofence
+- Once in the air, assign new multi-point polygon for transit corridor (which should encompass base and landing site)
+- Assign square polygon for landing sight once near GPS position
+- Reassign transit corridor when back in the air
+- Reassign base geofence when finish transit
+
+We will most likely use approach 2, given what Bede has said regarding firmware implementation.
+
+We also need to implement some procedure for implementing the ``soft geofence'', where we define a fake geofence smaller than the actual geofence, to help prevent us needing flight termination; needs research.
+
 \subsection{Radio Equipment}
 Discussion of equipment and frequencies, and compliance with CASA regulations.

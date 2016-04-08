@@ -2,7 +2,7 @@
 \subsection{Mitigating Risks identified in Section \ref{sec:risk-assessment}}
 This section addresses how the team will manage and mitigate the risks identified in Section \ref{sec:risk-management}. Continuing to follow the Risk Assessment template, the tables below will contain the following information in each row: the hazard (as identified previously), any control measures used to mitigate or manage the hazard, and the resultant risk rating, after implementing the control measures.\\
 
-\begin{table}[!h]
+\begin{table}[!ht]
 	\label{tab:management-electrical}
 	\centering
 	\begin{tabularx}{\textwidth}{|Y|Y|c|}
@@ -10,17 +10,70 @@ This section addresses how the team will manage and mitigate the risks identifie
 		\MULTROW{\textbf{Risk}} & \MULTROW{\textbf{Control Measures}} & \MULTROW{\textbf{Residual Risk Rating}}[70pt]\\
 		& & \\
 		\hline
-		\MULTROW{Electrocution}[*][3] & Testing and tagging of GCS hardware, eliminate exposed wiring (heat shrink) in aircraft & \MULTROW{Medium}[*][3]\\
+		\MULTROW{Electrocution} & Test and tag GCS hardware, eliminate exposed wiring (heat shrink) in aircraft & \MULTROW{Medium}\\
 		\hline
 		Impact to batteries, causing explosion & Transport using flame retardant  & Medium\\
 		\hline
 		Loss of motor power & Possible & Medium\\		
 		\hline
 	\end{tabularx} 
-	\caption{Risk Assessment - Electrical Hazards}
+	\caption{Risk Management - Electrical Hazards}
+\end{table}
+
+\begin{table}[!ht]
+\label{tab:management-autonomy}
+\centering
+\begin{tabularx}{\textwidth}{|Y|Y|c|}
+	\hline
+	\MULTROW{\textbf{Risk}} & \MULTROW{\textbf{Control Measures}} & \MULTROW{\textbf{Residual Risk Rating}}[70pt]\\
+	& & \\
+	\hline
+	Danger to personnel due to non-vertical launch & Launch aircraft a safe distance from personnel, as prescribed by the organisers & \MULTROW{Low}\\
+	\hline
+	\MULTROW{Non-vertical launch due to high winds} & Challenge will not proceed if the 10 minute average wind speed exceeds 25kts & \MULTROW{Low}\\
+	\hline
+	Non-vertical launch due to motor failure & Aircraft can be disabled from GCS & Low\\
+	\hline
+	\MULTROW{Loss of aircraft control while grounded} & Aircraft can be disabled from GCS, or external e-stop & \MULTROW{Low}\\
+	\hline
+	\MULTROW{Loss of GPS during landing maneuvers}[*][3] & Aircraft will estimate position, attitude and altitude using IMU, ultrasonic sensor and accelerometer, respectively & \MULTROW{Low}[*][3]\\
+	\hline
+	\MULTROW{Harm to personnel when arming aircraft} & Aircraft will wait for one minute before activating motors after arming & \MULTROW{Low}\\
+	\hline
+\end{tabularx} 
+\caption{Risk Management - Autonomous Takeoff and Landing}
 \end{table}
 
 GPS failure in all modes, hovering without GPS
+
+\begin{table}[!ht]
+	\label{tab:management-inflight}
+	\centering
+	\begin{tabularx}{\textwidth}{|Y|Y|c|}
+		\hline
+		\MULTROW{\textbf{Risk}} & \MULTROW{\textbf{Control Measures}} & \MULTROW{\textbf{Residual Risk Rating}}[70pt]\\
+		& & \\
+		\hline
+		Loss of aircraft control & \MULTROW{Autopilot implements failsafe termination} & \MULTROW{Low} \\
+		(Autopilot failure or lock-up) & & \\
+		\hline
+		Loss of aircraft control (Propeller or power loss) & Failsafe is commanded by Raspberry Pi upon erratic/uncontrolled behaviour & \MULTROW{Low} \\
+		
+		\hline
+		Loss of GPS link only to GCS & Likely & Low \\
+		\hline
+		Loss of telemetry/radio link only to GCS & Likely & Low \\
+		\hline
+		Loss of both telemetry and GPS to GCS & Possible & Low \\
+		\hline
+		GCS failure & \MULTROW{Possible} & \MULTROW{Low}\\
+		(aircraft loses communication with GCS) & & \\
+		\hline
+		Geofence breach & Likely & Medium \\
+		\hline
+	\end{tabularx} 
+	\caption{Risk Assessment - In-flight Hazards}
+\end{table}
 
 \subsection{Battery Management}
 What are we doing to ensure we have enough power to stay in the sky?

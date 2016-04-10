@@ -26,9 +26,17 @@ Each row of the risk assessment tables contains the following information: the p
 		\hline
 		Electrocution & Possible & Insignificant & Medium\\
 		\hline
+		Overcharge of batteries, causing explosion & Likely & Insignificant & Medium\\
+		\hline
 		Impact to batteries, causing explosion & Possible & Insignificant & Medium\\
 		\hline
-		Loss of motor power & Possible & Insignificant & Medium\\		
+		Insufficient power to complete mission & Likely & Insignificant & Medium\\
+		\hline
+		Loss of power to motors & Possible & Insignificant & Medium\\		
+		\hline
+		Loss of power to autopilot/flight controls & Possible & Insignificant & Medium\\
+		\hline
+		System, or electrical connection failure due to heat inside canopy & \MULTROW{Likely} & \MULTROW{Insignificant} & \MULTROW{Medium}\\
 		\hline
 	\end{tabularx} 
 	\caption{Risk Assessment - Electrical Hazards}
@@ -42,6 +50,7 @@ Each row of the risk assessment tables contains the following information: the p
 		\textbf{Risk} & \textbf{Likelihood} & \textbf{Consequence} & \textbf{Risk Rating}\\
 		\hline
 		Harm to personnel due to non-vertical launch & Likely & Insignificant & Medium\\
+		\hline
 		Non-vertical launch due to high winds & Likely & Insignificant & Medium\\
 		\hline
 		Non-vertical launch due to motor failure & Likely & Insignificant & Medium\\
@@ -79,6 +88,8 @@ Each row of the risk assessment tables contains the following information: the p
 		(aircraft loses communication with GCS) & & & \\
 		\hline
 		Geofence breach & Likely & Insignificant & Medium \\
+		\hline
+		Failure caused by software bug & Likely & Insignificant & Medium\\
 		\hline
 	\end{tabularx} 
 	\caption{Risk Assessment - In-flight Hazards}

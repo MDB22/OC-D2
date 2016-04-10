@@ -1,6 +1,5 @@
 \label{sec:risk-management}
-\subsection{Mitigating Risks identified in Section \ref{sec:risk-assessment}}
-This section addresses how the team will manage and mitigate the risks identified in Section \ref{sec:risk-management}. Continuing to follow the Risk Assessment template, the tables below will contain the following information in each row: the hazard (as identified previously), any control measures used to mitigate or manage the hazard, and the resultant risk rating, after implementing the control measures.\\
+This section addresses how the team will manage and mitigate the risks identified in Section \ref{sec:risk-assessment}. Continuing to follow the Risk Assessment template, the tables below will contain the following information in each row: the hazard (as identified previously), any control measures used to mitigate or manage the hazard, and the resultant risk rating, after implementing the control measures.\\
 
 \begin{table}[!ht]
 	\label{tab:management-electrical}
@@ -10,11 +9,19 @@ This section addresses how the team will manage and mitigate the risks identifie
 		\MULTROW{\textbf{Risk}} & \MULTROW{\textbf{Control Measures}} & \MULTROW{\textbf{Residual Risk Rating}}[70pt]\\
 		& & \\
 		\hline
-		\MULTROW{Electrocution} & Test and tag GCS hardware, eliminate exposed wiring (heat shrink) in aircraft & \MULTROW{Medium}\\
+		\MULTROW{Electrocution} & Test and tag GCS hardware, eliminate exposed wiring (heat shrink) in aircraft & \MULTROW{Low}\\
 		\hline
-		Impact to batteries, causing explosion & Transport using flame retardant  & Medium\\
+		\MULTROW{Overcharge of batteries, causing explosion} & Li-Po charger with overcharge detection and cell management & \MULTROW{Low}\\
 		\hline
-		Loss of motor power & Possible & Medium\\		
+		\MULTROW{Impact to batteries, causing explosion} & Transport using flame retardant, cushioned cases  & \MULTROW{Low}\\
+		\hline
+		\MULTROW{Insufficient power to complete mission} & Batteries of sufficient quantity and capacity to power aircraft for over 1 hour & \MULTROW{Low}\\
+		\hline
+		\MULTROW{Loss of power to motors} & Batteries of sufficient quantity and capacity to power aircraft for over 1 hour & \MULTROW{Low}\\		
+		\hline
+		\MULTROW{Loss of power to autopilot/flight controls}[*][3] & Separate power systems for autopilot/flight controls, and auxiliary systems & \MULTROW{Low}[*][3]\\
+		\hline
+		System, or electrical connection failure due to heat inside canopy & Ventilation and high gauge (high current) wire used inside aircraft & \MULTROW{Low}\\
 		\hline
 	\end{tabularx} 
 	\caption{Risk Management - Electrical Hazards}
@@ -70,9 +77,8 @@ GPS failure in all modes, hovering without GPS
 		\hline
 		Geofence breach & Likely & Medium \\
 		\hline
+		\MULTROW{Failure caused by software bug}[*][3] & All software thoroughly tested in all flight modes using software and hardware in the loop (SITL, HITL) simulation & \MULTROW{Low}[*][3]\\
+		\hline
 	\end{tabularx} 
 	\caption{Risk Assessment - In-flight Hazards}
 \end{table}
-
-\subsection{Battery Management}
-What are we doing to ensure we have enough power to stay in the sky?

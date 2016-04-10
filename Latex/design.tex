@@ -1,12 +1,25 @@
-\subsection{System Diagram}
+\subsection{System Diagrams}
 Software and hardware architecture diagrams from final report.
 
 \subsection{Aeronautical Requirements}
-Discuss flight capabilities? Speed, endurance, range...
+\subsubsection{Endurance and Speed Requirements}
+In modeling the performance of our aircraft, we assume that the 2 takes-offs and 2 landings for the mission will average no more than 5 minutes each, including accepting the sample from Outback Joe. With 60 minutes allocated for the task, the aircraft must travel the transit corridor to Joe and back, 32 nautical miles, within 40 minutes. With this assumption, the aircraft must be capable of traveling at 48.6 knots. 
 
-Technical Committee will be looking for an understanding as to how teams will maintain their aircraft within its airspeed envelop.
+\subsubsection{Aircraft Capabilities}
+\begin{itemize}
+	\item[\textbf{Speed}] As mentioned in Section \ref{sec:intro}, MAS' UAV is built on the Skywalker X8 airframe. The X8 has been demonstrated by many users to achieve airspeeds in excess of 140km/h using similar battery and motor selections.
+	\item[\textbf{Lift}] The stall speed of our aircraft is estimated to be 25.3 knots, according to empirical data on the Skywalker X8
+	\item[\textbf{Endurance}] Battery tests have shown that 4 vertical take-off and landing maneuvers, reaching YYYYY feet, lasting 1-2 minutes each, consumes only XXXXXX\% battery. 
+\end{itemize}
+
+As the aircraft is not yet fully complete, the requirements above are estimation/calculations only. Full testing and validation will be performed prior to Deliverable 3, once the aircraft has progressed in development. At this point proper range and endurance tests to will be conducted get a better estimation of cruise speeds, take off, landing and sample pick up times, as well as maximum flight time.
 
 \subsection{Flight Termination System}
+\subsubsection{Design}
+
+\subsubsection{State Machine}
+
+\subsubsection{Analysis}
 Effect of flight termination system (control surface positions, etc.)
 
 Response to various failures.\\

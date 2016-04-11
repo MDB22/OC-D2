@@ -78,18 +78,16 @@ Each row of the risk assessment tables contains the following information: the p
 		Loss of aircraft control  & \MULTROW{Likely} & \MULTROW{Insignificant} & \MULTROW{Medium} \\
 		(Propeller or power loss) & & & \\
 		\hline
-		Loss of GPS link only to GCS & Likely & Insignificant & Medium \\
+		Loss of GPS link to UAV & Likely & Insignificant & Medium \\
 		\hline
-		Loss of telemetry/radio link only to GCS & Likely & Insignificant & Medium \\
+		Loss of telemetry/radio link to GCS & Likely & Insignificant & Medium \\
 		\hline
 		Loss of both telemetry and GPS to GCS & Possible & Insignificant & Medium \\
 		\hline
-		GCS failure & \MULTROW{Possible} & \MULTROW{Insignificant} & \MULTROW{Medium}\\
+		GCS failure or lockup  & \MULTROW{Possible} & \MULTROW{Insignificant} & \MULTROW{Medium}\\
 		(aircraft loses communication with GCS) & & & \\
 		\hline
 		Geofence breach & Likely & Insignificant & Medium \\
-		\hline
-		Failure caused by software bug & Likely & Insignificant & Medium\\
 		\hline
 	\end{tabularx} 
 	\caption{Risk Assessment - In-flight Hazards}

@@ -1,4 +1,16 @@
 \label{sec:risk-management}
+\subsection{Backup Systems}
+In order to protect against various failures during flight, a number of backup systems will be used on the UAV, enhancing the safety of each flight. These systems are:
+\begin{enumerate}
+	\item Isolated power supply for PixHawk flight controller, separate from sensor and actuator power supply
+	\item Redundant position sensors to complement GPS, including IMU and accelerometer in PixHawk, altimeter (high altitude), and LiDARLite and ultrasonic sensor (low altitude) mounted underneath airframe
+	\item A backup flight termination protocol programmed into the Raspberry Pi to complement automatic flight termination in the PixHawk
+\end{enumerate}
+
+\subsection{Software Development}
+Give the nature of real-world autonomous systems, it is impossible to develop software that can respond to every potential situation. To make our software as robust as possible all of our software systems are tested through DroneKit's Software in the Loop (SITL) simulator, and visualised in the Mission Planner ground control station. Once the software has been validated in the simulator, we progress to Hardware in the Loop (HITL) testing, and validate the software on our UAV platform.
+
+\subsection{Risk Control Measures}
 This section addresses how the team will manage and mitigate the risks identified in Section \ref{sec:risk-assessment}. Continuing to follow the Risk Assessment template, the tables below will contain the following information in each row: the hazard (as identified previously), any control measures used to mitigate or manage the hazard, and the resultant risk rating, after implementing the control measures.\\
 
 \begin{table}[!ht]
@@ -51,8 +63,6 @@ This section addresses how the team will manage and mitigate the risks identifie
 \caption{Risk Management - Autonomous Takeoff and Landing}
 \end{table}
 
-GPS failure in all modes, hovering without GPS
-
 \begin{table}[!ht]
 	\label{tab:management-inflight}
 	\centering
@@ -66,19 +76,23 @@ GPS failure in all modes, hovering without GPS
 		\hline
 		Loss of aircraft control (Propeller or power loss) & Failsafe is commanded by Raspberry Pi upon erratic/uncontrolled behaviour & \MULTROW{Low} \\		
 		\hline
-		Loss of GPS link only to GCS & Likely & Low \\
+		\MULTROW{Loss of GPS link to UAV (Hover)}[*][4] & Switch to PosHold mode until a GPS fix is acquired; activate flight termination if backup position sensors estimate UAV has crossed a Geofence boundary & \MULTROW{Low}[*][4] \\
 		\hline
-		Loss of telemetry/radio link only to GCS & Likely & Low \\
+		\MULTROW{Loss of GPS link to UAV (Fixed wing)}[*][4] & Switch to Circle mode until a GPS fix is acquired; activate flight termination if backup position sensors estimate UAV has crossed a Geofence boundary & \MULTROW{Low}[*][4]\\
 		\hline
-		Loss of both telemetry and GPS to GCS & Possible & Low \\
+		\MULTROW{Loss of telemetry/radio link to GCS}[*][3] \MULTROW{(Hover)}[*][3] & If a heartbeat has not been detected for 10s, switch to PosHold mode; if no heartbeat detected for 30s, immediately land and declare mission failure & \MULTROW{Low}[*][4] \\
 		\hline
-		GCS failure & \MULTROW{Possible} & \MULTROW{Low}\\
-		(aircraft loses communication with GCS) & & \\
+		\MULTROW{Loss of telemetry/radio link to GCS}[*][3] \MULTROW{(Fixed Wing)}[*][3] & If a heartbeat has not been detected for 10s, switch to Circle mode; if no heartbeat detected for 30s, transition to Hover, and follow Hover procedures & \MULTROW{Low}[*][4] \\
 		\hline
-		Geofence breach & Likely & Medium \\
+		\MULTROW{Loss of both telemetry and GPS to GCS} & Aircraft is deemed out of control, initiate flight termination & \MULTROW{Low} \\
 		\hline
-		\MULTROW{Failure caused by software bug}[*][3] & All software thoroughly tested in all flight modes using software and hardware in the loop (SITL, HITL) simulation & \MULTROW{Low}[*][3]\\
+		GCS failure or lockup (aircraft loses communication with GCS) & Attempt to restart GCS; aircraft follows procedure for loss of radio link & \MULTROW{Low}\\
+		\hline
+		\MULTROW{Geofence breach} & Implement soft Geofence to initiate Geofence avoidance near boundaries & \MULTROW{Low} \\
 		\hline
 	\end{tabularx} 
-	\caption{Risk Assessment - In-flight Hazards}
+	\caption{Risk Management - In-flight Hazards}
 \end{table}
+
+\clearpage
+\subsection{Pre-Flight Checklist}

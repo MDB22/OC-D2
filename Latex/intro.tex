@@ -1,16 +1,14 @@
 \label{sec:intro}
-This Deliverable discusses the development and capabilities of Melbourne Autonomous Systems' entry to the 2016 UAV Challenge. MAS is a self-funded, student-run team made up of final year and graduate Mechatronics students from the University of Melbourne; we have no sponsorship sources to disclose.\\
+This report discusses each of the logical components in developing our UAV, including: Design, Risk Management, and Test Flights.\\
 
-Discuss PixHawk as flight controller, and Pi as brains and compute center.\\
+Our entry to the UAV Challenge 2016 consists of a single autonomous, hybrid fixed-wing/rotor-based aircraft, built on the Skywalker X8. The X8 will have 3 motors in a Y configuration, where the front rotors can rotate between vertical and forward thrust, allowing for both hover and fixed-wing flight modes. it will be controlled by a PixHawk flight controller, augmented by a Raspberry Pi companion computer for autonomy and computation. The completed airframe has a total weight of $\sim$4.5kg\\
 
-Overview of hybrid approach, and transition system.\\
+One of our primary concerns in developing an UAV Challenge capable UAV are autonomy, and safety. Our autonomous system builds upon the capabilities of the PixHawk autopilot by using DroneKit Python on the Raspberry Pi to add functionality such as additional sensing, more computational power, and mission planning, giving it the ability to make intelligent, independent decisions in real-time.\\
 
-List sensors included on aircraft.\\
+The other primary concern is meeting the strict safety requirements of the UAV Challenge, to ensure all personnel and property near the flight corridor, base and landing site can be assured to be safe. To achieve this, we have performed a comprehensive risk assessment, designed a robust flight termination system, and developed a series of pre-flight checks, all of which are discussed below. We have also designed our system with redundant power supplies, position sensing, and flight termination, and the capability for backup radio communication if required.\\
 
-We will use a single aircraft.\\
+For additional safety, the aircraft is fitted with an arming switch to manually arm/disarm motors to launch the aircraft, as well as an emergency stop to disable the aircraft in case of emergency. Every flight is also monitored by the Mission Planner ground control station, which includes a telemetry link to the aircraft, showing its current position on a map, and displaying telemetry data such as battery and heading. Finally, a NMEA data link is included to provide a data feed to UAV Challenge personnel during the mission.\\
 
-Not a commercial off-the-shelf solution.\\
+In our short time developing our UAV for our first UAV Challenge we've had plenty of failed test flights, but also many successes, including autonomous missions. Every test flight, simulated and real, gives us new information, and we look forward to having a completed aircraft for the Challenge in September.\\
 
-State the aircraft's total weight.\\
-
-GCS and NMEA discussion\\
+Autonoma have no sponsorship sources to disclose.\\

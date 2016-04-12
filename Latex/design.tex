@@ -2,14 +2,14 @@
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.85\linewidth]{\IMAGEPATH sw-arch}
+	\includegraphics[width=0.9\linewidth]{\IMAGEPATH sw-arch}
 	\caption{Software Architecture}
 	\label{fig:sw-arch}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\linewidth]{\IMAGEPATH hw-arch}
+	\includegraphics[width=0.9\linewidth]{\IMAGEPATH hw-arch}
 	\caption{Hardware Architecture}
 	\label{fig:hw-arch}
 \end{figure}
@@ -20,10 +20,11 @@ In modeling the performance of our aircraft, we assume that the 2 takes-offs and
 
 \subsubsection{Aircraft Capabilities}
 \begin{itemize}
-	\item[\textbf{Lift}] With out selection of motors and batteries, our UAV is capable of 4.5kg of lift, more than enough to lift the 2.5kg airframe, as well as accept the sample from Joe.
-	\item[\textbf{Stall}] As mentioned in Section \ref{sec:intro}, our UAV is built on the Skywalker X8 airframe. The stall speed of our aircraft is estimated to be 25.3 knots, according to empirical data on the Skywalker X8.
-	\item[\textbf{Speed}] The X8 has been demonstrated by many users to achieve airspeeds in excess of 75.5 knots using similar battery and motor selections.
-	\item[\textbf{Endurance}] Battery tests have shown that 4 vertical take-off and landing maneuvers, reaching an altitude of 20ft, lasting 1-2 minutes each, consumes only XXXXXX\% battery. 
+	\item \textbf{Lift} - With our selection of motors and batteries, our UAV is capable of 4.5kg of lift, more than enough to lift the 2.5kg airframe, as well as accept the sample from Joe.
+	\item \textbf{Stall} - As mentioned in Section \ref{sec:intro}, our UAV is built on the Skywalker X8 airframe. The stall speed of our aircraft is estimated to be 25.3 knots, according to empirical data on the Skywalker X8.
+	\item \textbf{Speed} - The X8 has been demonstrated by many users to achieve airspeeds in excess of 75.5 knots using similar battery and motor selections.
+	\item \textbf{Endurance} - Battery tests have shown that 4 vertical take-off and landing maneuvers, reaching an altitude of 20ft, lasting 1-2 minutes each, consumed only a small portion of total power capacity. Taking this into consideration, we have more than enough battery to achieve the remainder of the mission in fixed-wing flight.
+	\item \textbf{Geofence Avoidance} - In order to maximise our chances of completing the challenge, the aircraft's position and orientation will be measured by the PixHawk's inbuilt IMU and accelerometer, as well as a 3DR GPS/compass module. In addition to this, altitude will also be measured by an altimeter, and a LiDARLite and ultrasonic sensor mounted beneath the airframe. All AMSL altitudes will be measured in pressure altitudes.
 \end{itemize}
 
 Prior to transitioning from hover to fixed-wing mode, the aircraft will align itself with wind, and the front rotors will be tilted at 30-45$^o$ to provide horizontal and vertical thrust. The aircraft will accelerate to above stall speed, at which the front rotors are fully rotated, completing the transition. To transition back to hover, the reverse operation is performed.\\
@@ -32,6 +33,26 @@ As the aircraft is not yet fully complete, the requirements above are estimation
 
 \subsection{Flight Termination System}
 \subsubsection{Design}
+This aircraft’s flight termination system uses the on-board PixHawk controller and is built off existing APM:Plane firmware, with the focus of ensuring safe operation within a defined region of airspace, rather than prioritizing keeping the aircraft itself intact.\\
+
+It uses a combination of rotor and fixed-wing flight, but will respond as a fixed-wing device if the flight termination system is activated (i.e. motors will be disarmed and control surfaces will be set to the required positions). These control surface settings will cause the UAV to enter a spin towards the ground, thereby minimising the distance travelled beyond a Geofence boundary if a breach occurs.\\
+
+The rationale behind this decision is that even in copter flight modes, the UAV still has wings that may catch the wind and carry it further beyond a breached geofence boundary, so to minimise distance travelled outside the geofence in all cases the following control surface settings will be imposed on the aircraft:
+\begin{itemize}
+	\item Throttle closed
+	\item Full down on right aileron
+	\item Full up on left aileron
+	\item Rudder, elevator are flap controls are not applicable for our aircraft
+\end{itemize}
+
+As per the requirements of the UAV Challenge, this flight termination system can be triggered in manual or in automatic flight modes, and once activated cannot be overridden. The flight termination system is activated by:
+\begin{enumerate}
+	\item Geofence breach - The aircraft will automatically engage its flight termination system in the event of a Geofence breach (horizontal or vertical). This condition is checked on a 1Hz loop.
+	\item Failure (or ‘lock-up’) of Geofence detection systems - If all sensors responsible for Geofence detection (IMU, accelerometer GPS, altimeter, LiDAR and ultrasonic), the aircraft can no longer measure its position, and should immediately engage flight termination.
+	\item Manual activation - At any time during the mission, the flight termination system can be activated manually from the ground control station, overriding all actuators.
+	\item Failure (or ‘lock-up’) of autopilot - Normal operation of the autopilot system is checked via ‘heartbeat’ signals provided at a frequency of 10Hz to the flight termination system. If these checks fail for a sustained period of 1 second, the flight termination system will be activated immediately.
+	\item Loss of both GPS and telemetry to GCS - A ‘heartbeat’ signal is also continually sent to the Ground Control Station via the telemetry link, to achieve the required 1Hz data update format. Failure to maintain this link during GPS failure will trigger the flight termination system.
+\end{enumerate}
 
 \subsubsection{State Machine}
 
@@ -45,33 +66,17 @@ Design, state machine and transitions.\\
 Analysis of termination system capabilities.
 
 \subsection{Geofence System}
-Discuss processing of data, set up of Geofence around mission, implementation of soft Geofence.
+The Geofence system implemented, as part of the firmware on our UAV, will be based on the system included in APM:Plane; that is, it will consist of a irregular polygon boundary made up of no more than 18 points, and will encompass the Base, the Landing Site, and the Transit Corridor.\\
 
-Geofences are represented differently depending on plane or copter:
-- Copter geofences are cylindrical
-- Plane geofences are (up to) 18 point polygons
+Upon arming, a square Geofence will be sent to the PixHawk encompassing the Base. A soft Geofence will also be implemented as a circle of 800m diameter, allowing the UAV to attempt to recover when approaching the Geofence.\\
 
-Approach 1 - Switching aircraft configuration mid-flight:
-- Assign cylindrical geofence at base on startup
-- Upon transition, assign full, polygonal geofence for transit corridor
-- Upon reaching landing site and transitioning to copter, assign cylindrical geofence for landing site
-- Transition, redefine transit corridor geofence and return to base
-- Redefine cylindrical geofence and land at base
+Once cruising altitude is reached, Geofence is modified to include the transit corridor and landing site. Given that teams are provided with the mission details at the commencement of the event, the soft Geofence for this section will be manually created by the team, such that the UAV can avoid flight termination in the Transit Corridor.\\
 
-Approach 2 - Using only plane mode:
-- Assign square polygon for base geofence
-- Once in the air, assign new multi-point polygon for transit corridor (which should encompass base and landing site)
-- Assign square polygon for landing sight once near GPS position
-- Reassign transit corridor when back in the air
-- Reassign base geofence when finish transit
-
-We will most likely use approach 2, given what Bede has said regarding firmware implementation.
-
-We also need to implement some procedure for implementing the ``soft geofence'', where we define a fake geofence smaller than the actual geofence, to help prevent us needing flight termination; needs research.
+Finally, once reaching the landing site a square Geofence is again sent to the UAV, with the soft Geofence again being an 800m circle, centered on Joe's GPS location. When returning to Base, the Transit Corridor and Base Geofences are applied in the same manner.
 
 \subsection{Radio Equipment}
 In order to perform low-bandwidth digital telemetry between the drone and ground station over distances up to 12.5km we have chosen to use an RFD900 long range telemetry kit. In accordance with the ACMA LIPD-2015 ISM Class License this kit allows us to operate in a spectrum that does not require any specialised qualifications or license fees. The transmitter itself is compliant with AS 4268:2008, and is therefore suitable for use under the class license.\\
 
 This kit operates between 902 and 928MHz, however we will use the 915-928MHz band in order to meet class license specifications.  Additionally the kit will be run at 1 Watt EIRP with at least 20 frequency hopping channels. Operating under these conditions falls under LIPD-2015 item 54 – Frequency Hopping Spread Spectrum transmitters.\\
 
-If we find the low bandwidth telemetry link to be unreliable, a second transmitter will be added to provide communication redundancy. In accordance with the class license this will operate between 5725 and 5850MHz at 4 Watt EIRP, with at least frequency hopping 75 channels (LIPD-2015 item 57).
+If we find the low bandwidth telemetry link to be unreliable, a second transmitter will be added to provide communication redundancy. In accordance with the class license this will operate between 5725 and 5850MHz at 4 Watt EIRP, with at least 75 frequency hopping channels (LIPD-2015 item 57).

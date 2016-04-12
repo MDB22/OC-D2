@@ -1,5 +1,11 @@
-Summarise the document below; most likely a summary of our design, and our approach to maximise safety and compliance.\\
+Autonoma (formerly Melbourne Autonomous Systems) is entering the Outback Challenge for the first time in 2016, after some of the team members completed their final year research project developing a hybrid UAV to compete in the challenge in 2015. Autonoma is a self-funded, student-run team made up of final year and graduate Mechatronics students from the University of Melbourne.\\
 
-\textbf{This will be the final task of the report.}
+Our design approach is first and foremost to maximise autonomy and safety, developing our own autonomous systems using DroneKit Python, and implementing flight termination systems in APM:Plane's firmware. The safety of the aircraft is also improved by the redundant sensors and power systems, and other safety measures implemented as a result of our risk assessment.\\
 
-Our videos accompanying this report (satisfying the video requirements in Section 6.2 of the rules) are at:
+The flight termination system is designed immediately send the aircraft into a dive if a key safety concern is violated, such as a Geofence breach. for less severe safety concerns, such as GPS loss, the system is designed to maintain flight as long as possible in the hope of returning to a safe flight state, but will safely land in safety concerns continue for some time. The PixHawk Geofence system is also augmented by a soft Geofence, implemented in Python on our Raspberry Pi companion computer, to maximise chances of completing the mission.\\
+
+The autonomy subsystem is designed to follow the mission waypoints through the transit corridor to Joe's location, and will implement a circular search when it reaches the landing site using OpenCV and machine learning to identify ``Joe-like'' objects and safe landing zones.\\
+
+We have successfully performed autonomous missions, and our development is now aimed at refining our computer vision system, and further testing of our transition system. Our development involves rigorous testing in both simulation (SITL), and small scale, substitute aircraft, before implementing on our actual airframe. We are still aways from full completion, but we are confident of building a competition ready aircraft for Deliverable 3.\\
+
+Our video accompanying this report, describing our pre-flight checks and showing autonomous take-off and landing, can be found at: \url{http://bit.ly/1ScU6cP}

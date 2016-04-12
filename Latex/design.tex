@@ -1,26 +1,20 @@
 \subsection{System Diagrams}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.9\linewidth]{\IMAGEPATH sw-arch}
-	\caption{Software Architecture}
-	\label{fig:sw-arch}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.9\linewidth]{\IMAGEPATH hw-arch}
-	\caption{Hardware Architecture}
-	\label{fig:hw-arch}
+\begin{figure}[H]	
+	\begin{subfigure}{0.32\textwidth}
+		\centerline{\includegraphics[width=270pt]{\IMAGEPATH sw-arch}}
+		\caption{Software Architecture}
+		\label{fig:sw-arch}
+	\end{subfigure} %
+	\begin{subfigure}{.93\textwidth}
+		\centerline{\includegraphics[width=315pt]{\IMAGEPATH hw-arch}}
+		\caption{Hardware Architecture}
+		\label{fig:hw-arch}
+	\end{subfigure}
 \end{figure}
 
 \subsection{Aeronautical Requirements}
-\subsubsection{Endurance and Speed Requirements}
-In modeling the performance of our aircraft, we assume that the 2 takes-offs and 2 landings for the mission will average no more than 5 minutes each, including accepting the sample from Outback Joe. With 60 minutes allocated for the task, the aircraft must travel the transit corridor to Joe and back, 32 nautical miles, within 40 minutes. With this assumption, the aircraft must be capable of traveling at 48.6 knots. 
-
-\subsubsection{Aircraft Capabilities}
 \begin{itemize}
-	\item \textbf{Lift} - With our selection of motors and batteries, our UAV is capable of 4.5kg of lift, more than enough to lift the 2.5kg airframe, as well as accept the sample from Joe.
+	\item \textbf{Lift} - With our selection of motors and batteries, our UAV is capable of 6.5kg of lift, more than enough to lift the 4kg airframe, as well as accept the sample from Joe.
 	\item \textbf{Stall} - As mentioned in Section \ref{sec:intro}, our UAV is built on the Skywalker X8 airframe. The stall speed of our aircraft is estimated to be 25.3 knots, according to empirical data on the Skywalker X8.
 	\item \textbf{Speed} - The X8 has been demonstrated by many users to achieve airspeeds in excess of 75.5 knots using similar battery and motor selections.
 	\item \textbf{Endurance} - Battery tests have shown that 4 vertical take-off and landing maneuvers, reaching an altitude of 20ft, lasting 1-2 minutes each, consumed only a small portion of total power capacity. Taking this into consideration, we have more than enough battery to achieve the remainder of the mission in fixed-wing flight.
@@ -33,16 +27,14 @@ As the aircraft is not yet fully complete, the requirements above are estimation
 
 \subsection{Flight Termination System}
 \subsubsection{Design}
-This aircraft’s flight termination system uses the on-board PixHawk controller and is built off existing APM:Plane firmware, with the focus of ensuring safe operation within a defined region of airspace, rather than prioritizing keeping the aircraft itself intact.\\
-
-It uses a combination of rotor and fixed-wing flight, but will respond as a fixed-wing device if the flight termination system is activated (i.e. motors will be disarmed and control surfaces will be set to the required positions). These control surface settings will cause the UAV to enter a spin towards the ground, thereby minimising the distance travelled beyond a Geofence boundary if a breach occurs.\\
+This aircraft’s flight termination system uses the on-board PixHawk controller and is built off existing APM:Plane firmware, with the focus of ensuring safe operation within a defined region of airspace, rather than prioritizing keeping the aircraft itself intact. Though our aircraft is a hybrid, it will respond as a fixed-wing device, disarming motors and setting  if the flight termination system is activated (i.e. motors will be disarmed and control surfaces will be set to the required positions). These control surface settings will cause the UAV to enter a spin towards the ground, thereby minimising the distance travelled beyond a Geofence boundary if a breach occurs.\\
 
 The rationale behind this decision is that even in copter flight modes, the UAV still has wings that may catch the wind and carry it further beyond a breached geofence boundary, so to minimise distance travelled outside the geofence in all cases the following control surface settings will be imposed on the aircraft:
 \begin{itemize}
 	\item Throttle closed
 	\item Full down on right aileron
 	\item Full up on left aileron
-	\item Rudder, elevator are flap controls are not applicable for our aircraft
+	\item Rudder, elevator and flap controls are not applicable for our aircraft
 \end{itemize}
 
 As per the requirements of the UAV Challenge, this flight termination system can be triggered in manual or in automatic flight modes, and once activated cannot be overridden. The flight termination system is activated by:
@@ -50,20 +42,27 @@ As per the requirements of the UAV Challenge, this flight termination system can
 	\item Geofence breach - The aircraft will automatically engage its flight termination system in the event of a Geofence breach (horizontal or vertical). This condition is checked on a 1Hz loop.
 	\item Failure (or ‘lock-up’) of Geofence detection systems - If all sensors responsible for Geofence detection (IMU, accelerometer GPS, altimeter, LiDAR and ultrasonic), the aircraft can no longer measure its position, and should immediately engage flight termination.
 	\item Manual activation - At any time during the mission, the flight termination system can be activated manually from the ground control station, overriding all actuators.
-	\item Failure (or ‘lock-up’) of autopilot - Normal operation of the autopilot system is checked via ‘heartbeat’ signals provided at a frequency of 10Hz to the flight termination system. If these checks fail for a sustained period of 1 second, the flight termination system will be activated immediately.
+	\item Failure (or ‘lock-up’) of autopilot - Normal operation of the autopilot system is checked via ‘heartbeat’ signals provided at a frequency of 10Hz to the flight termination system. If these checks fail for a sustained period of 1 second, the flight termination system will be activated `immediately.
 	\item Loss of both GPS and telemetry to GCS - A ‘heartbeat’ signal is also continually sent to the Ground Control Station via the telemetry link, to achieve the required 1Hz data update format. Failure to maintain this link during GPS failure will trigger the flight termination system.
 \end{enumerate}
 
 \subsubsection{State Machine}
+Refer to Figure \ref{fig:termination-diagram}.
+\begin{figure}
+	\centering
+	\includegraphics[width=1.1\linewidth]{\IMAGEPATH termination-diagram}
+	\caption{State Machine for Flight Termination System}
+	\label{fig:termination-diagram}
+\end{figure}
 
 \subsubsection{Analysis}
-Effect of flight termination system (control surface positions, etc.)
-
-Response to various failures.\\
-
-Design, state machine and transitions.\\
-
-Analysis of termination system capabilities.
+Calculating the worst case scenario for activation of the flight termination system following a Geofence breach, we assume the control surface settings will cause the plane to enter a near-vertical dive. However, for simplicity of analysis and to take a conservative approach, in calculating the worst-case the plane is treated as a simple falling mass (in reality, trajectory of its crash will be steeper and the distance travelled beyond the geofence will be shorter). Since this is a worst-case calculation, it was assumed that in this scenario the UAV is flying directly at a geofence boundary, at maximum speed and maximum allowable altitude.
+\begin{itemize}
+	\item Max speed = 75.5 knots = 38.5833m/s
+	\item Max altitude = 1500ft = 457.2m
+	\item Time to descend (as point mass under gravity) = 9.65s
+	\item Horizontal distance travelled = 372m
+\end{itemize}
 
 \subsection{Geofence System}
 The Geofence system implemented, as part of the firmware on our UAV, will be based on the system included in APM:Plane; that is, it will consist of a irregular polygon boundary made up of no more than 18 points, and will encompass the Base, the Landing Site, and the Transit Corridor.\\

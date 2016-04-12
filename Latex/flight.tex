@@ -1,3 +1,30 @@
-Tuning results, performance before and after?\\
+\subsection{Achievements to Date}
+\begin{itemize}
+	\item Selection and testing Skywalker X8 hybrid configuration
+	\item 3D printing of new parts to accommodate modifications to the chassis and component housing 
+	\item Set up and trials of the Pixhawk flight controller
+	\item Set up of higher level Raspberry Pi control environment
+	\item Creation and testing of novel in flight transition system
+	\item Sensor integration for obstacle avoidance and Joe detection
+	\item Modifications to the Pixhawk firmware to accommodate transition
+	\item Selection and planning for long range network communication
+	\item Successful autonomous missions on test aircraft, and X8
+\end{itemize}
 
-Confidence in aircraft's capabilities?\\
+\subsection{Development Progression}
+In 2015, two of Autonoma's team members focused their final year engineering masters project on developing our entry to the UAV Challenge. The focus for the year was on the creation of a stable airframe, physical set up of the transition system, purchasing of all components, set up and initial testing of the flight controller, and the development of some high level automation through the Raspberry Pi, all of which proved to be successful.\\
+
+This year's team, including four members again working on their final year masters project, are focusing on completing the advanced autopilot system for the fixed wing transition, improved autonomy and vision systems for finding Joe, as well as long range communications.
+
+\subsection{Hardware Development}
+In addition developing software for autonomy, and the actual airframe, we have successfully integrated a number of sensors with the Raspberry Pi to augment the sensing capabilities of the PixHawk. Currently, we have added an ultrasonic sensor beneath the airframe to provide low altitude height measurements, a LiDARLite mounted on two servos to perform sweeping scans in front of the object for obstacle detection, and a PiCam to provide vision for the aircraft.
+
+\subsection{Software in the Loop Testing}
+Before flashing new firmware developments to the PixHawk, we first test using DroneKit Software in the Loop to validate our code. When testing firmware, our benchmark tests compare the performance of the simulated aircraft to its performance prior to the change, and any radical changes in behaviour or performance are analysed by team members to determine if it is a bug, or an intended change. Similar testing is performed before testing autonomous flight code on our aircraft.
+
+\subsection{Flight Testing}
+A huge amount of time has been put into conducting test flights, especially in identify and overcoming hardware issues such as faulty GPS modules and miswired connections. The multi-copter control system has been tested and found to perform well under ideal settings, but further testing is needed for bad weather, such as high wind.\\
+
+Continuous flight testing and iterative design of internal components (including 3D printed parts) have been conducted to ensure the integrity of the frame and components, including a number of autonomous flight missions on both the X8, and two smaller aircraft. Our next step is achieving transition, and we are currently developing APM:Plane firmware modifications to accommodate this. Throughout testing, we have also collected data from all our logs, which is helping to debug our design and flight approach.\\
+
+The video that was uploaded with this deliverable should give a good understanding of how tests are being completed and also shares some of the information that is being recorded. 

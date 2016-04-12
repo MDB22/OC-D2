@@ -1,5 +1,18 @@
 \subsection{System Diagrams}
-Software and hardware architecture diagrams from final report.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth]{\IMAGEPATH sw-arch}
+	\caption{Software Architecture}
+	\label{fig:sw-arch}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{\IMAGEPATH hw-arch}
+	\caption{Hardware Architecture}
+	\label{fig:hw-arch}
+\end{figure}
 
 \subsection{Aeronautical Requirements}
 \subsubsection{Endurance and Speed Requirements}
@@ -7,10 +20,13 @@ In modeling the performance of our aircraft, we assume that the 2 takes-offs and
 
 \subsubsection{Aircraft Capabilities}
 \begin{itemize}
-	\item[\textbf{Speed}] As mentioned in Section \ref{sec:intro}, our UAV is built on the Skywalker X8 airframe. The X8 has been demonstrated by many users to achieve airspeeds in excess of 140km/h using similar battery and motor selections.
-	\item[\textbf{Lift}] The stall speed of our aircraft is estimated to be 25.3 knots, according to empirical data on the Skywalker X8
-	\item[\textbf{Endurance}] Battery tests have shown that 4 vertical take-off and landing maneuvers, reaching YYYYY feet, lasting 1-2 minutes each, consumes only XXXXXX\% battery. 
+	\item[\textbf{Lift}] With out selection of motors and batteries, our UAV is capable of 4.5kg of lift, more than enough to lift the 2.5kg airframe, as well as accept the sample from Joe.
+	\item[\textbf{Stall}] As mentioned in Section \ref{sec:intro}, our UAV is built on the Skywalker X8 airframe. The stall speed of our aircraft is estimated to be 25.3 knots, according to empirical data on the Skywalker X8.
+	\item[\textbf{Speed}] The X8 has been demonstrated by many users to achieve airspeeds in excess of 75.5 knots using similar battery and motor selections.
+	\item[\textbf{Endurance}] Battery tests have shown that 4 vertical take-off and landing maneuvers, reaching an altitude of 20ft, lasting 1-2 minutes each, consumes only XXXXXX\% battery. 
 \end{itemize}
+
+Prior to transitioning from hover to fixed-wing mode, the aircraft will align itself with wind, and the front rotors will be tilted at 30-45$^o$ to provide horizontal and vertical thrust. The aircraft will accelerate to above stall speed, at which the front rotors are fully rotated, completing the transition. To transition back to hover, the reverse operation is performed.\\
 
 As the aircraft is not yet fully complete, the requirements above are estimation/calculations only. Full testing and validation will be performed prior to Deliverable 3, once the aircraft has progressed in development. At this point proper range and endurance tests to will be conducted get a better estimation of cruise speeds, take off, landing and sample pick up times, as well as maximum flight time.
 

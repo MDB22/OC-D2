@@ -75,9 +75,9 @@ This section addresses how the team will manage and mitigate the risks identifie
 		\hline
 		Loss of aircraft control (Propeller or power loss) & Failsafe is commanded by Raspberry Pi upon erratic/uncontrolled behaviour & \MULTROW{Low} \\		
 		\hline
-		\MULTROW{Loss of GPS link to UAV (Hover)}[*][4] & Switch to PosHold mode until a GPS fix is acquired; activate flight termination if backup position sensors estimate UAV has crossed a Geofence boundary & \MULTROW{Low}[*][4] \\
+		\MULTROW{Loss of GPS link to UAV (Hover)}[*][4] & Switch to Pos Hold mode until a GPS fix is acquired; land aircraft if $t$ seconds have elapsed, where $t$ is min time to Geofence crossing from last position & \MULTROW{Low}[*][4] \\
 		\hline
-		\MULTROW{Loss of GPS link to UAV (Fixed wing)}[*][4] & Switch to Circle mode until a GPS fix is acquired; activate flight termination if backup position sensors estimate UAV has crossed a Geofence boundary & \MULTROW{Low}[*][4]\\
+		\MULTROW{Loss of GPS link to UAV (Fixed wing)}[*][4] & Switch to Circle mode until a GPS fix is acquired; land aircraft if $t$ seconds have elapsed, where $t$ is min time to Geofence crossing from last position & \MULTROW{Low}[*][4]\\
 		\hline
 		\MULTROW{Loss of telemetry/radio link to GCS}[*][3] \MULTROW{(Hover)}[*][3] & If a heartbeat has not been detected for 10s, switch to PosHold mode; if no heartbeat detected for 30s, immediately land and declare mission failure & \MULTROW{Low}[*][4] \\
 		\hline
